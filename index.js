@@ -1,3 +1,6 @@
+const Task = require('./model/Task.js');
+const User = require('./model/User.js');
+
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/Task').then(() =>{
@@ -10,15 +13,10 @@ mongoose.connect('mongodb://localhost:27017/Task').then(() =>{
 });
 
 
-const userSchema = mongoose.Schema({
-    name: String,
-    surname: String,
-    phone : Number,
-    age: Number,
-    email : String,
-    password : String
 
-});
 
-const UserModel = mongoose.model('User',userSchema);
+
+
+
+
 
