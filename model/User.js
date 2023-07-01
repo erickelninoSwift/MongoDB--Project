@@ -14,7 +14,8 @@ const userSchema = new mongoose.Schema({
         maxlength: 20
     },
     phone :{
-        type : Number,
+        type : String,
+        minlegth : 10
     },
     age:{
         type : Number,
@@ -37,7 +38,8 @@ const userSchema = new mongoose.Schema({
         }
     },
     password : {
-        type : String
+        type : String,
+        minlength: 6
     }
 
 });
