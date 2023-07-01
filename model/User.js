@@ -1,3 +1,6 @@
+
+const mongoose = require('./MongodbConnection');
+
 const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
@@ -39,7 +42,7 @@ const userSchema = new mongoose.Schema({
     },
     password : {
         type : String,
-        minlength: 6
+        require : true
     }
 
 });
