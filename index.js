@@ -136,7 +136,7 @@ app.get('/Task',async (req,res) =>{
        
 
         return res.status(200).json({
-            message : true,
+            success : true,
             AllMytask
         });
 
@@ -176,6 +176,69 @@ app.get('/User',async (req,res) =>{
     }
 
 });
+
+
+// FETCH SPECIFIC USER
+
+app.get('/User/:id' ,async(req,res)=>{
+
+    try
+    {
+        const userRequestedid = req.params.id;
+        
+        const userfound = await User.findById(req.params.id);
+        if(userfound)
+        {
+
+        return res.status(200).json({
+            success : true,
+            userfound
+        });
+        }
+
+    }catch(errno)
+    {
+
+       return res.status(400).json({
+
+          success : false,
+          message : `Error while sending Request : ${errno.message}`
+       });
+
+    }
+
+});
+
+// GET SPECIFI TASk
+app.get('/Task/:id' ,async(req,res)=>{
+
+    try
+    {
+
+        
+        const userfound = await Task.findById(req.params.id);
+        if(userfound)
+        {
+
+        return res.status(200).json({
+            success : true,
+            userfound
+        });
+        }
+
+    }catch(errno)
+    {
+
+       return res.status(400).json({
+
+          success : false,
+          message : `Error while sending Request : ${errno.message}`
+       });
+
+    }
+
+});
+
 
 async function addTaskDatabase()
 {
