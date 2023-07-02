@@ -3,10 +3,11 @@ const Task = require('./model/Task.js');
 const User = require('./model/User.js');
 const express = require('express');
 
-const PORT = process.env.PORT || 4045;
+const PORT = process.env.PORT || 4000;
 
 const app = express();
 
+app.use(express.json());
 
 
 const colors = require('colors');
@@ -14,16 +15,32 @@ const colors = require('colors');
 
 app.get('/',(req,res) =>{
 
-    console.log(req.url)
+    console.log(req.body)
     res.send('<h1> Jackpot here </h1>');
 });
 
-app.post('/Task',(req,res) =>{
+app.post('/Task',async(req,res) =>{
 
+    try
+    {
+        const description = req.body.description;
 
-    console.log(res.statusCode);
-    res.send('Success');
+    console.log(description);
 
+    const mytask = new Task(req.body)
+
+    await mytask.save();
+
+    return res.status(201).json({
+        
+        message: true , mytask
+    });
+    }catch(errno)
+    {
+        return res.status(400).json({
+            message: errno.message
+        });
+    }
 });
 
 
@@ -46,11 +63,14 @@ app.post('/Task',(req,res) =>{
 */
 
 
-
-
 app.listen(PORT, () =>{
     console.log(`Server is running on PORT: ${PORT}`);
 })
+
+process.on('uncaughtException', error =>{
+    console.log(`Error was found : ${error.message}`);
+    process.exit(1);
+});
 
 
 
