@@ -3,18 +3,33 @@ const Task = require('./model/Task.js');
 const User = require('./model/User.js');
 const express = require('express');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4045;
 
-const App = express();
+const app = express();
 
 
 
 const colors = require('colors');
 
 
+app.get('/',(req,res) =>{
+
+    console.log(req.url)
+    res.send('<h1> Jackpot here </h1>');
+});
+
+app.post('/Task',(req,res) =>{
+
+
+    console.log(res.statusCode);
+    res.send('Success');
+
+});
+
 
 /*
    /Task POST 
+
    /Task GET
    /Task/:id GET
    /Task/:id PATCH
@@ -33,11 +48,8 @@ const colors = require('colors');
 
 
 
-App.listen(PORT, () =>{
-
-
+app.listen(PORT, () =>{
     console.log(`Server is running on PORT: ${PORT}`);
-
 })
 
 
