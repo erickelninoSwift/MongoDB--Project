@@ -132,14 +132,44 @@ app.get('/Task',async (req,res) =>{
 
     try
     {
-        const AllMytask =  await User.find({});
-        console.log(AllMytask);
-        res.send('Success');
+        const AllMytask =  await Task.find({});
+       
+
+        return res.status(200).json({
+            message : true,
+            AllMytask
+        });
+
 
     }catch(error)
 
     {
         return res.status(400).json({
+            success : false,
+            message : error.message
+        });
+    }
+
+});
+
+// USER FETCH
+
+app.get('/User',async (req,res) =>{
+
+    try
+    {
+        const AllUser =  await User.find({});
+
+
+        return res.json({
+            success : true,
+            AllUser
+        });
+
+    }catch(error)
+
+    {
+        return res.json({
             success : false,
             message : error.message
         });
