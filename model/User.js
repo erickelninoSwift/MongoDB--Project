@@ -8,17 +8,20 @@ const userSchema = new mongoose.Schema({
         type : String,
         require : true,
         minlegth : 3,
-        maxlength: 20
+        maxlength: 20,
+        trim : true
     },
     surname:{
         type : String,
         require : true,
         minlegth : 3,
-        maxlength: 20
+        maxlength: 20,
+        trim : true
     },
     phone :{
         type : String,
-        minlegth : 10
+        minlegth : 10,
+        trim : true
     },
     age:{
         type : Number,
@@ -38,7 +41,11 @@ const userSchema = new mongoose.Schema({
             {
                 throw new Error(`Email entered is incorrect : ${value}`);
             }
-        }
+        },
+        trim : true,
+        lowercase : true,
+        unique: true
+        
     },
     password : {
         type : String,
