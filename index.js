@@ -38,9 +38,38 @@ app.post('/Task',async(req,res) =>{
     }catch(errno)
     {
         return res.status(400).json({
-            message: errno.message
+            success : false ,
+            message : errno.message
         });
     }
+});
+
+// Add User Information
+
+
+app.post('/User',async (req,res) =>{
+
+    try
+    {
+        const newUser = new User(req.body)
+
+        await newUser.save();
+
+        return res.status(200).json({
+            message: true , newUser
+        });
+
+
+    }catch(errno)
+    {
+
+        return res.status(400).json({
+            message: errno.message
+        });
+
+    }
+    
+
 });
 
 
@@ -90,7 +119,6 @@ async function databaseTask()
     
         await users.save();
 
-        console.log(users);
     }catch(error)
     {
         console.log(colors.red.underline(error.message));
@@ -99,6 +127,25 @@ async function databaseTask()
         console.log('Function done executing');
     }
 }
+
+app.get('/Task',async (req,res) =>{
+
+    try
+    {
+        const AllMytask =  await User.find({});
+        console.log(AllMytask);
+        res.send('Success');
+
+    }catch(error)
+
+    {
+        return res.status(400).json({
+            success : false,
+            message : error.message
+        });
+    }
+
+});
 
 async function addTaskDatabase()
 {

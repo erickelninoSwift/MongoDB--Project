@@ -11,18 +11,6 @@ const userSchema = new mongoose.Schema({
         maxlength: 20,
         trim : true
     },
-    surname:{
-        type : String,
-        require : true,
-        minlegth : 3,
-        maxlength: 20,
-        trim : true
-    },
-    phone :{
-        type : String,
-        minlegth : 10,
-        trim : true
-    },
     age:{
         type : Number,
         validate(value)
