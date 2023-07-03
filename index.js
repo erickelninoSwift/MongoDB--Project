@@ -240,7 +240,7 @@ app.get('/Task/:id' ,async(req,res)=>{
 
 // Update User data
 
-app.patch('User/:id',async (req,res) =>{
+app.patch('/User/:id',async (req,res) =>{
 
     console.log(req.params.id);
 
@@ -274,6 +274,38 @@ app.patch('User/:id',async (req,res) =>{
         return res.status(400).json({
             success : false,
             message : `Could not find the user requested in the database : ${errno.message}`
+        });
+    }
+
+});
+
+
+// DELETE USER
+
+app.delete('/User/:id',async(req,res) =>{
+
+    try
+    {
+        const userTodelete = await User.findByIdAndDelete(req.params.id);
+        if(userTodelete)
+        {
+            return res.status(200).json({
+                success : true,
+                message : 'User was deleted'
+            });
+        }else
+        {
+            return res.status(404).json({
+                success : false,
+                message : 'User was not found'
+            })
+        }
+
+    }catch(errno)
+    {
+        return res.status(400).json({
+            success : false,
+            message : `Error was found : ${errno.message}`
         });
     }
 
