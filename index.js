@@ -12,9 +12,13 @@ app.use(express.json());
 
 const colors = require('colors');
 
+const userRouter = require('./routes/user.js');
+const taskRouter = require('./routes/task.js');
 
 
 
+app.use(userRouter);
+app.use(taskRouter);
 
 
 

@@ -1,6 +1,10 @@
-const Task = require('./model/Task.js');
+const express = require('express')
+const router = express.Router();
 
-app.delete('/Task/:id',async(req,res) =>{
+const Task = require('../model/Task.js');
+
+
+router.delete('/Task/:id',async(req,res) =>{
 
     try
     {
@@ -29,7 +33,7 @@ app.delete('/Task/:id',async(req,res) =>{
 
 });
 
-app.get('/Task/:id' ,async(req,res)=>{
+router.get('/Task/:id' ,async(req,res)=>{
 
     try
     {
@@ -59,7 +63,7 @@ app.get('/Task/:id' ,async(req,res)=>{
 });
 
 
-app.get('/Task',async (req,res) =>{
+router.get('/Task',async (req,res) =>{
 
     try
     {
@@ -84,7 +88,7 @@ app.get('/Task',async (req,res) =>{
 });
 
 
-app.post('/Task',async(req,res) =>{
+router.post('/Task',async(req,res) =>{
 
     try
     {
@@ -109,5 +113,5 @@ app.post('/Task',async(req,res) =>{
     }
 });
 
-
+module.exports = router;
 

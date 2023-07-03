@@ -1,6 +1,11 @@
+const express = require('express')
+const router = express.Router();
+
 const User = require('../model/User.js');
 
-app.get('/User',async (req,res) =>{
+
+
+router.get('/User',async (req,res) =>{
 
     try
     {
@@ -25,7 +30,7 @@ app.get('/User',async (req,res) =>{
 
 // FETCH SPECIFIC USER
 
-app.get('/User/:id' ,async(req,res)=>{
+router.get('/User/:id' ,async(req,res)=>{
 
     try
     {
@@ -59,7 +64,7 @@ app.get('/User/:id' ,async(req,res)=>{
 
 // Update User data
 
-app.patch('/User/:id',async (req,res) =>{
+router.patch('/User/:id',async (req,res) =>{
 
     console.log(req.params.id);
 
@@ -101,7 +106,7 @@ app.patch('/User/:id',async (req,res) =>{
 
 // DELETE USER
 
-app.delete('/User/:id',async(req,res) =>{
+router.delete('/User/:id',async(req,res) =>{
 
     try
     {
@@ -131,7 +136,7 @@ app.delete('/User/:id',async(req,res) =>{
 });
 
 
-app.post('/User',async (req,res) =>{
+router.post('/User',async (req,res) =>{
 
     try
     {
@@ -156,3 +161,4 @@ app.post('/User',async (req,res) =>{
 
 });
 
+module.exports = router;
