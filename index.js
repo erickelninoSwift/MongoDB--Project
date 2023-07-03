@@ -160,7 +160,6 @@ app.get('/User',async (req,res) =>{
     {
         const AllUser =  await User.find({});
 
-
         return res.json({
             success : true,
             AllUser
@@ -238,6 +237,48 @@ app.get('/Task/:id' ,async(req,res)=>{
     }
 
 });
+
+// Update User data
+
+app.patch('User/:id',async (req,res) =>{
+
+    console.log(req.params.id);
+
+    try
+    {
+        const userToUpdate = await User.findByIdAndUpdate(req.params.id,req.body,{
+
+            new : true,
+            runValidators : true
+
+        });
+
+        if(!userToUpdate)
+        {
+            return res.status(404).json({
+                success :  false,
+                message : 'User was not found'
+            })
+
+        }else
+        {
+            res.status(200).json({
+                success : true ,
+                userToUpdate
+            })
+        }
+        
+
+    }catch(errno)
+    {
+        return res.status(400).json({
+            success : false,
+            message : `Could not find the user requested in the database : ${errno.message}`
+        });
+    }
+
+});
+
 
 
 async function addTaskDatabase()
