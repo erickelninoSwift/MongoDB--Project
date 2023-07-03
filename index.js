@@ -312,6 +312,45 @@ app.delete('/User/:id',async(req,res) =>{
 });
 
 
+// TASK DELETE
+
+app.delete('/Task/:id',async(req,res) =>{
+
+    try
+    {
+        const taskTodelete = await Task.findByIdAndDelete(req.params.id);
+        if(taskTodelete)
+        {
+            return res.status(200).json({
+                success : true,
+                message : 'Task was deleted'
+            });
+        }else
+        {
+            return res.status(404).json({
+                success : false,
+                message : 'Task was not found'
+            })
+        }
+
+    }catch(errno)
+    {
+        return res.status(400).json({
+            success : false,
+            message : `Error was found : ${errno.message}`
+        });
+    }
+
+});
+
+
+// ORGANISE ROUTE AND FUCNTIONALITIES
+
+
+
+
+
+
 
 async function addTaskDatabase()
 {
