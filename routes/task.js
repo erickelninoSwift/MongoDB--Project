@@ -3,115 +3,15 @@ const router = express.Router();
 
 const Task = require('../model/Task.js');
 
+const controllerTask = require('../Controller/taskController.js');
 
-router.delete('/Task/:id',async(req,res) =>{
+router.delete('/Task/:id',controllerTask.deleteATask);
 
-    try
-    {
-        const taskTodelete = await Task.findByIdAndDelete(req.params.id);
-        if(taskTodelete)
-        {
-            return res.status(200).json({
-                success : true,
-                message : 'Task was deleted'
-            });
-        }else
-        {
-            return res.status(404).json({
-                success : false,
-                message : 'Task was not found'
-            })
-        }
+router.get('/Task/:id',controllerTask.getSpecifictask);
 
-    }catch(errno)
-    {
-        return res.status(400).json({
-            success : false,
-            message : `Error was found : ${errno.message}`
-        });
-    }
+router.get('/Task',controllerTask.fetchAllTasks);
 
-});
-
-router.get('/Task/:id' ,async(req,res)=>{
-
-    try
-    {
-
-        
-        const userfound = await Task.findById(req.params.id);
-        if(userfound)
-        {
-
-        return res.status(200).json({
-            success : true,
-            userfound
-        });
-        }
-
-    }catch(errno)
-    {
-
-       return res.status(400).json({
-
-          success : false,
-          message : `Error while sending Request : ${errno.message}`
-       });
-
-    }
-
-});
-
-
-router.get('/Task',async (req,res) =>{
-
-    try
-    {
-        const AllMytask =  await Task.find({});
-       
-
-        return res.status(200).json({
-            success : true,
-            AllMytask
-        });
-
-
-    }catch(error)
-
-    {
-        return res.status(400).json({
-            success : false,
-            message : error.message
-        });
-    }
-
-});
-
-
-router.post('/Task',async(req,res) =>{
-
-    try
-    {
-        const description = req.body.description;
-
-    console.log(description);
-
-    const mytask = new Task(req.body)
-
-    await mytask.save();
-
-    return res.status(201).json({
-        
-        message: true , mytask
-    });
-    }catch(errno)
-    {
-        return res.status(400).json({
-            success : false ,
-            message : errno.message
-        });
-    }
-});
+router.post('/Task',controllerTask.addtask);
 
 module.exports = router;
 
