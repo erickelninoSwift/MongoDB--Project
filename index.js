@@ -13,13 +13,6 @@ app.use(express.json());
 const colors = require('colors');
 
 
-app.get('/',(req,res) =>{
-
-    console.log(req.body)
-    res.send('<h1> Jackpot here </h1>');
-});
-
-
 
 
 
