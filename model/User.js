@@ -2,6 +2,7 @@
 const mongoose = require('./MongodbConnection');
 
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -41,6 +42,17 @@ const userSchema = new mongoose.Schema({
     }
 
 });
+
+
+userSchema.pre('save', async (next) =>{
+
+    const user = this;
+
+    user.password = bcrypt.hash(user.password);
+    next();
+    
+});
+
 
 const UserModel = mongoose.model('User',userSchema);
 

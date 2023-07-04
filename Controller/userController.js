@@ -1,5 +1,5 @@
 const User = require('../model/User');
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 
 const getAlluser = async (req,res) =>{
 
@@ -30,7 +30,7 @@ const fetchSpecificUser = async(req,res)=>{
     {
         const userRequestedid = req.params.id;
         
-        const userfound = await User.findById(req.params.id);
+        // const userfound = await User.findById(req.params.id);
         if(userfound)
         {
 
