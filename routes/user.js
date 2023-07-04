@@ -13,5 +13,6 @@ router.get('/User/:id' ,UserController.fetchSpecificUser);
 router.patch('/User/:id',UserController.updateSpecificUser);
 router.delete('/User/:id',UserController.deleteUser);
 router.post('/User',UserController.addUser);
+router.post('/User/login',UserController.loginUser);
 
 module.exports = router;

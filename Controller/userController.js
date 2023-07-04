@@ -1,5 +1,6 @@
 const User = require('../model/User');
 const bcrypt = require('bcryptjs');
+const { all } = require('../routes/user');
 
 
 const getAlluser = async (req,res) =>{
@@ -151,5 +152,59 @@ const addUser = async (req,res) =>{
 
 }
 
+const loginUser = async (req,res) =>{
 
-module.exports = {getAlluser,addUser,deleteUser,updateSpecificUser,fetchSpecificUser};
+    try
+    {
+        const {email,password} = req.body;
+        const userCredential =  await User.findOne({email});
+
+        // const isMatch = await bcrypt.compare(password,userCredential.password);
+
+      
+
+        if(!userCredential)
+        {
+            return res.status(401).json({
+                success : false,
+                message : 'There is no user registrer under this email address'
+            });
+        }else
+        {
+            const isMatch = await bcrypt.compare(password,userCredential.password);
+
+           
+           if(isMatch)
+           {
+            return res.status(200).json({
+                success : true,
+                message : 'User found with success',
+                useremail : userCredential
+                
+            });
+           }else
+           {
+             return res.status(401).json({
+                success : false,
+                message : 'Password incorrect!!!'
+             });
+           }
+        }
+
+
+    }catch(errno)
+    {
+
+        return res.status(404).json({
+
+            success : false,
+            message : `User clicked or didnt fill up the whole document ${errno.message}`
+        });
+
+    }
+
+
+}
+
+
+module.exports = {getAlluser,addUser,deleteUser,updateSpecificUser,fetchSpecificUser,loginUser};
