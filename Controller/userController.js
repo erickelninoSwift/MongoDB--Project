@@ -1,5 +1,6 @@
 const User = require('../model/User');
-// const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
+
 
 const getAlluser = async (req,res) =>{
 
@@ -23,14 +24,12 @@ const getAlluser = async (req,res) =>{
 
 }
 
-
 const fetchSpecificUser = async(req,res)=>{
 
     try
     {
-        const userRequestedid = req.params.id;
-        
-        // const userfound = await User.findById(req.params.id);
+    
+        const userfound = await User.findById(req.params.id);
         if(userfound)
         {
 
@@ -59,12 +58,12 @@ const updateSpecificUser = async (req,res) =>{
 
     try
     {
-        const userToUpdate = await User.findByIdAndUpdate(req.params.id,req.body,{
+        const userToUpdate  = await User.findById(req.params.id);
+        const keys = Object.keys(req.body)
 
-            new : true,
-            runValidators : true
+        console.log(userToUpdate);
+        console.log(req.body[keys]);
 
-        });
 
         if(!userToUpdate)
         {
@@ -75,6 +74,8 @@ const updateSpecificUser = async (req,res) =>{
 
         }else
         {
+            userToUpdate[keys] = req.body[keys];
+            await userToUpdate.save();
             res.status(200).json({
                 success : true ,
                 userToUpdate
@@ -125,7 +126,7 @@ const addUser = async (req,res) =>{
 
     try
     {
-        req.body.password = await bcrypt.hash(req.body.password,8);
+        // req.body.password = await bcrypt.hash(req.body.password,8);
         const newUser = new User(req.body)
 
         await newUser.save();
@@ -138,8 +139,11 @@ const addUser = async (req,res) =>{
     }catch(errno)
     {
 
+        console.log(errno)
+
         return res.status(400).json({
-            message: errno.message
+            success : false,
+            message: errno
         });
 
     }

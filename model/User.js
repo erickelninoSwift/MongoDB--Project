@@ -4,7 +4,7 @@ const mongoose = require('./MongodbConnection');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
-const userSchema = new mongoose.Schema({
+let userSchema = new mongoose.Schema({
     name: {
         type : String,
         require : true,
@@ -44,13 +44,10 @@ const userSchema = new mongoose.Schema({
 });
 
 
-userSchema.pre('save', async (next) =>{
+userSchema.pre('save', async function(next){
 
-    const user = this;
-
-    user.password = bcrypt.hash(user.password);
+    this.password = await bcrypt.hash(this.password,8);
     next();
-    
 });
 
 
