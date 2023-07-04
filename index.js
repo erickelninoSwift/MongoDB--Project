@@ -2,6 +2,7 @@
 const Task = require('./model/Task.js');
 const User = require('./model/User.js');
 const express = require('express');
+const bcrypt = require('bcryptjs');
 
 const PORT = process.env.PORT || 4000;
 

@@ -1,4 +1,5 @@
 const User = require('../model/User');
+const bcrypt = require('bcryptjs');
 
 const getAlluser = async (req,res) =>{
 
@@ -124,6 +125,7 @@ const addUser = async (req,res) =>{
 
     try
     {
+        req.body.password = await bcrypt.hash(req.body.password,8);
         const newUser = new User(req.body)
 
         await newUser.save();
