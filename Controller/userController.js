@@ -34,9 +34,9 @@ const fetchSpecificUser = async(req,res)=>{
         if(userfound)
         {
 
-        return res.status(200).json({
-            success : true,
-            userfound
+             return res.status(200).json({
+             success : true,
+             userfound
         });
         }
 
